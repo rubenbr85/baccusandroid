@@ -1,8 +1,10 @@
-package com.adasistemas.bacus;
+package com.adasistemas.bacus.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+
+import com.adasistemas.bacus.R;
 
 public class WineActivity extends AppCompatActivity {
     private static  final String TAG = WineActivity.class.getSimpleName();
