@@ -15,7 +15,7 @@ public class WineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wine);
 
         //Recoger la vista con el ID imageView
-        mWineImage = (ImageView) findViewById(R.id.imageView);
+        mWineImage = (ImageView) findViewById(R.id.wine_image);
 
         //Asignar a la vista la imagen de recursos son ese nombre
         mWineImage.setImageResource(R.drawable.vendaval);
