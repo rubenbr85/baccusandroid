@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/wine_image"
-            android:layout_centerHorizontal="true"
             android:src="@drawable/bembibre"
             android:layout_weight="1"/>
 
@@ -32,26 +31,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView2"/>
+                android:text="wine_name"
+                android:id="@+id/wine_name"/>
 
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@android:style/Widget.Holo.RatingBar.Small"
-                android:id="@+id/ratingBar"/>
+                android:id="@+id/wine_rating"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView4"/>
+                android:text="wine_company"
+                android:id="@+id/wine_company"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView3"/>
+                android:text="wine_typet"
+                android:id="@+id/wine_type"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wine_origin"
+                android:id="@+id/wine_origin"/>
         </LinearLayout>
     </LinearLayout>
 
