@@ -2,6 +2,7 @@ package com.adasistemas.bacus.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.adasistemas.bacus.R;
@@ -18,7 +19,9 @@ public class WineActivity extends AppCompatActivity {
 
         //Recoger la vista con el ID imageView
         mWineImage = (ImageView) findViewById(R.id.wine_image);
+    }
 
+    public void changeImage(View view){
         //Asignar a la vista la imagen de recursos son ese nombre
         mWineImage.setImageResource(R.drawable.vendaval);
     }
