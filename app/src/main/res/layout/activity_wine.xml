@@ -10,13 +10,26 @@
               tools:context="com.adasistemas.bacus.WineActivity"
               android:orientation="vertical">
 
-    <ImageView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/wine_image"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/bembibre"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/wine_image"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bembibre"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </LinearLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
