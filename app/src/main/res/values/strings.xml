@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bacus</string>
+    <string name="wine_image_description">Imagen que representa a un vino</string>
 </resources>

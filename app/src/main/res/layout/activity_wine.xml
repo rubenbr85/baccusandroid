@@ -20,7 +20,8 @@
             android:layout_height="match_parent"
             android:id="@+id/wine_image"
             android:src="@drawable/bembibre"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:contentDescription="@string/wine_image_description"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -66,7 +67,7 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/grapes_container">
                 </LinearLayout>
             </ScrollView>
