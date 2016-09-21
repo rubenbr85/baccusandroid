@@ -59,4 +59,16 @@ public class Wine {
     public String getOrigin() {
         return mOrigin;
     }
+
+    public void addGrape(String grape){
+        mGrapes.add(grape);
+    }
+
+    public int getGrapeCount(){
+        return  mGrapes.size();
+    }
+
+    public String getGrape(int index){
+        return mGrapes.get(index);
+    }
 }
