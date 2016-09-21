@@ -42,6 +42,7 @@ public class WineActivity extends AppCompatActivity {
                         ,"http://www.dominiodetares.com/portfolio/bembibre/"
                         ,"Vendiamiado a mano racimo a racimo, fermentado con su propia levadura natural y criado durante 16 meses en barricas de roble francés y americano con 24 meses extra en botellaVino de intenso color granate, nariz de frutos rojos y negros confitados, recuerdos de ciruela pasa y frutos secos tostados. Boca densa, pulida y cálida."
                         ,"El Bierzo");
+        mWine.addGrape("Mencia");
 
         //Accedemos a las vistas
         mWineImage = (ImageView) findViewById(R.id.wine_image);
@@ -62,6 +63,14 @@ public class WineActivity extends AppCompatActivity {
         mWineCompanyText.setText(mWine.getCompanyName());
         mWineNotesText.setText(mWine.getNotes());
 
+        //Actualizamos la lista de uvas
+        for (int i = 0; i < mWine.getGrapeCount(); i++){
+            TextView grapeText = new TextView(this);
+            grapeText.setText(mWine.getGrape(i));
+            grapeText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            mWineGrapesContainer.addView(grapeText);
+        }
 
     }
 
