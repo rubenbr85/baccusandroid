@@ -18,6 +18,8 @@ import com.adasistemas.bacus.model.Wine;
  */
 
 public class WebActivity extends Activity {
+    private static final String STATE_URL= "url";
+
     private  Wine mWine = null;
 
     //Vistas
@@ -71,8 +73,21 @@ public class WebActivity extends Activity {
         mBrowser.getSettings().setBuiltInZoomControls(true);
 
         //Cargo la pagina web
-        mBrowser.loadUrl(mWine.getCompanyWeb());
+        if (savedInstanceState == null || !savedInstanceState.containsKey(STATE_URL)) {
+            mBrowser.loadUrl(mWine.getCompanyWeb());
+        }
+        else{
+           mBrowser.loadUrl(savedInstanceState.getString(STATE_URL));
+        }
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //Guardmos en el estado para recuprarlo a la hora de girar..
+        super.onSaveInstanceState(outState);
+
+        outState.putString(STATE_URL,mBrowser.getUrl());
     }
 }
