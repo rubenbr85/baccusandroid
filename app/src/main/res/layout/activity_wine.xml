@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -34,12 +35,29 @@
                 android:layout_height="wrap_content"
                 android:text="wine_name"
                 android:id="@+id/wine_name"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Holo.RatingBar.Small"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/go_to_web_button"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/wine_rating"/>
 
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@android:style/Widget.Holo.RatingBar.Small"
-                android:id="@+id/wine_rating"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_menu_info_details"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:elevation="5dp"
+        android:id="@+id/go_to_web_button"/>
+
+</RelativeLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
