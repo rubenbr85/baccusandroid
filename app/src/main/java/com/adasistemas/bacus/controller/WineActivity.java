@@ -1,9 +1,11 @@
 package com.adasistemas.bacus.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -25,6 +27,8 @@ public class WineActivity extends AppCompatActivity {
     private TextView mWineCompanyText = null;
     private TextView mWineNotesText = null;
     private ViewGroup mWineGrapesContainer = null;
+    private ImageButton mGoToWebButton = null;
+
 
 
     @Override
@@ -53,6 +57,7 @@ public class WineActivity extends AppCompatActivity {
         mWineCompanyText = (TextView) findViewById(R.id.wine_company);
         mWineNotesText = (TextView) findViewById(R.id.wine_notes);
         mWineGrapesContainer = (ViewGroup) findViewById(R.id.grapes_container);
+        mGoToWebButton= (ImageButton) findViewById(R.id.go_to_web_button);
 
         //Damos valor a las vistas con el modelo
         mWineImage.setImageResource(mWine.getPhoto());
@@ -71,6 +76,18 @@ public class WineActivity extends AppCompatActivity {
 
             mWineGrapesContainer.addView(grapeText);
         }
+
+        //Configuramos botonoes
+        mGoToWebButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(WineActivity.this,WebActivity.class);
+
+                webIntent.putExtra(WebActivity.EXTRA_WINE,mWine);
+
+                startActivity(webIntent);
+            }
+        });
 
     }
 

@@ -3,10 +3,11 @@
  */
 package com.adasistemas.bacus.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Wine {
+public class Wine implements Serializable{
     private String  mName = null;
     private String mType = null;
     private int mPhoto = 0;
