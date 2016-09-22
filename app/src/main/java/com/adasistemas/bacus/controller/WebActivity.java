@@ -3,6 +3,10 @@ package com.adasistemas.bacus.controller;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -17,7 +21,7 @@ import com.adasistemas.bacus.model.Wine;
  * Created by ruben on 21/09/2016.
  */
 
-public class WebActivity extends Activity {
+public class WebActivity extends AppCompatActivity {
     private static final String STATE_URL= "url";
 
     private  Wine mWine = null;
@@ -89,5 +93,28 @@ public class WebActivity extends Activity {
         super.onSaveInstanceState(outState);
 
         outState.putString(STATE_URL,mBrowser.getUrl());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_web, menu);
+
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == R.id.menu_reload){
+            mBrowser.reload();
+
+            return  true;
+        }
+
+        return  false;
     }
 }
