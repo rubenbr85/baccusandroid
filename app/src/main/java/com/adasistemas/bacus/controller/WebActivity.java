@@ -22,7 +22,8 @@ import com.adasistemas.bacus.model.Wine;
  */
 
 public class WebActivity extends AppCompatActivity {
-    private static final String STATE_URL= "url";
+    public static final String EXTRA_WINE= "extra_wine";
+        private static final String STATE_URL= "url";
 
     private  Wine mWine = null;
 
@@ -35,18 +36,7 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
 
-
-        //Creamos el modelo
-        mWine = new Wine(
-                5,
-                "Bembibre"
-                ,"Tinto"
-                ,R.drawable.vendaval
-                ,"Dominio de Tares"
-                ,"http://www.dominiodetares.com/portfolio/bembibre/"
-                ,"Vendiamiado a mano racimo a racimo, fermentado con su propia levadura natural y criado durante 16 meses en barricas de roble francés y americano con 24 meses extra en botellaVino de intenso color granate, nariz de frutos rojos y negros confitados, recuerdos de ciruela pasa y frutos secos tostados. Boca densa, pulida y cálida."
-                ,"El Bierzo");
-        mWine.addGrape("Mencia");
+        mWine= (Wine) getIntent().getSerializableExtra(EXTRA_WINE);
 
         //Asocio vista y controlador
         mBrowser = (WebView) findViewById(R.id.browser);
