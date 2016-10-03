@@ -2,4 +2,9 @@
     <string name="app_name">Bacus</string>
     <string name="wine_image_description">Imagen que representa a un vino</string>
     <string name="reload">Recargar</string>
+    <string name="choose_an_option">Elegir una opción</string>
+    <string name="fit">Ajustada</string>
+    <string name="Center">Centrada</string>
+    <string name="Cancell">Cancelar</string>
+    <string name="Accept">Aceptar</string>
 </resources>
