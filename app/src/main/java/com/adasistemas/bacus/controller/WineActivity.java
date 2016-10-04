@@ -3,6 +3,9 @@ package com.adasistemas.bacus.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -15,6 +18,9 @@ import com.adasistemas.bacus.model.Wine;
 
 public class WineActivity extends AppCompatActivity {
     private static  final String TAG = WineActivity.class.getSimpleName();
+    private static  final int SETTING_REQUEST = 1;
+    private static  final String STATE_IMAGE_SCALE_TYPE = "com.adasistemas.bacus.controller.WineActivity.STATE_IMAGE_SCALE_TYPE";
+
     //Modelo
     private Wine mWine = null;
 
@@ -41,7 +47,7 @@ public class WineActivity extends AppCompatActivity {
                         5,
                         "Bembibre"
                         ,"Tinto"
-                        ,R.drawable.vendaval
+                        ,R.drawable.bembibre
                         ,"Dominio de Tares"
                         ,"http://www.dominiodetares.com/portfolio/bembibre/"
                         ,"Vendiamiado a mano racimo a racimo, fermentado con su propia levadura natural y criado durante 16 meses en barricas de roble francés y americano con 24 meses extra en botellaVino de intenso color granate, nariz de frutos rojos y negros confitados, recuerdos de ciruela pasa y frutos secos tostados. Boca densa, pulida y cálida."
@@ -89,6 +95,52 @@ public class WineActivity extends AppCompatActivity {
             }
         });
 
+
+        //Configuramos como se ve la imagen
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_IMAGE_SCALE_TYPE)){
+            mWineImage.setScaleType((ImageView.ScaleType) savedInstanceState.getSerializable(STATE_IMAGE_SCALE_TYPE) );
+        }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_wine, menu);
+
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == R.id.action_settings){
+            Intent settingsIntent = new Intent(this, SettingActivity.class);
+            settingsIntent.putExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE,mWineImage.getScaleType());
+            startActivityForResult(settingsIntent,SETTING_REQUEST);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTING_REQUEST && resultCode == RESULT_OK){
+            ImageView.ScaleType scaleType = (ImageView.ScaleType) data.getSerializableExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE);
+            mWineImage.setScaleType(scaleType);
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(STATE_IMAGE_SCALE_TYPE, mWineImage.getScaleType());
+    }
 }
