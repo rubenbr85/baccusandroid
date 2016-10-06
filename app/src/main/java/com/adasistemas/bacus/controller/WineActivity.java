@@ -17,6 +17,8 @@ import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.model.Wine;
 
 public class WineActivity extends AppCompatActivity {
+    public  static  String EXTRA_WINE = "com.adasistemas.bacus.controller.WineActivity.EXTRA_WINE";
+
     private static  final String TAG = WineActivity.class.getSimpleName();
     private static  final int SETTING_REQUEST = 1;
     private static  final String STATE_IMAGE_SCALE_TYPE = "com.adasistemas.bacus.controller.WineActivity.STATE_IMAGE_SCALE_TYPE";
@@ -42,17 +44,8 @@ public class WineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wine);
 
-        //Creamos el modelo
-        mWine = new Wine(
-                        5,
-                        "Bembibre"
-                        ,"Tinto"
-                        ,R.drawable.bembibre
-                        ,"Dominio de Tares"
-                        ,"http://www.dominiodetares.com/portfolio/bembibre/"
-                        ,"Vendiamiado a mano racimo a racimo, fermentado con su propia levadura natural y criado durante 16 meses en barricas de roble francés y americano con 24 meses extra en botellaVino de intenso color granate, nariz de frutos rojos y negros confitados, recuerdos de ciruela pasa y frutos secos tostados. Boca densa, pulida y cálida."
-                        ,"El Bierzo");
-        mWine.addGrape("Mencia");
+        //Recogemos el modelo
+        mWine = (Wine) getIntent().getSerializableExtra(EXTRA_WINE);
 
         //Accedemos a las vistas
         mWineImage = (ImageView) findViewById(R.id.wine_image);
