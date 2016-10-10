@@ -33,6 +33,12 @@ public class WebFragment extends Fragment{
     private WebView mBrowser = null;
     private ProgressBar mLoading= null;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); //para mostrar los menus
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
