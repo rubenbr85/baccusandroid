@@ -38,7 +38,7 @@ public class WebFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-       View root = inflater.inflate(R.layout.activity_web,container,false);
+       View root = inflater.inflate(R.layout.fragment_web,container,false);
 
         mWine= (Wine) getArguments().getSerializable(ARG_WINE);
 
