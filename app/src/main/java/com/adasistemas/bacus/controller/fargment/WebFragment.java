@@ -1,13 +1,15 @@
-package com.adasistemas.bacus.controller;
+package com.adasistemas.bacus.controller.fargment;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -18,29 +20,31 @@ import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.model.Wine;
 
 /**
- * Created by ruben on 21/09/2016.
+ * Created by ruben on 10/10/2016.
  */
 
-public class WebActivity extends AppCompatActivity {
-    public static final String EXTRA_WINE= "extra_wine";
-        private static final String STATE_URL= "url";
+public class WebFragment extends Fragment{
+    public static final String ARG_WINE= "com.adasistemas.bacus.controller.fargment.WebFragment.ARG_WINE";
+    private static final String STATE_URL= "url";
 
-    private  Wine mWine = null;
+    private Wine mWine = null;
 
     //Vistas
     private WebView mBrowser = null;
     private ProgressBar mLoading= null;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        mWine= (Wine) getIntent().getSerializableExtra(EXTRA_WINE);
+       View root = inflater.inflate(R.layout.activity_web,container,false);
+
+        mWine= (Wine) getArguments().getSerializable(ARG_WINE);
 
         //Asocio vista y controlador
-        mBrowser = (WebView) findViewById(R.id.browser);
-        mLoading = (ProgressBar) findViewById(R.id.loading);
+        mBrowser = (WebView) root.findViewById(R.id.browser);
+        mLoading = (ProgressBar) root.findViewById(R.id.loading);
 
         //Configuro vistas
         mBrowser.setWebViewClient(new WebViewClient(){
@@ -71,14 +75,16 @@ public class WebActivity extends AppCompatActivity {
             mBrowser.loadUrl(mWine.getCompanyWeb());
         }
         else{
-           mBrowser.loadUrl(savedInstanceState.getString(STATE_URL));
+            mBrowser.loadUrl(savedInstanceState.getString(STATE_URL));
         }
 
-
+        return root;
     }
 
+
+
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         //Guardmos en el estado para recuprarlo a la hora de girar..
         super.onSaveInstanceState(outState);
 
@@ -86,13 +92,9 @@ public class WebActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        MenuInflater inflater = getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_web, menu);
-
-        return  true;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.adasistemas.bacus.controller;
+package com.adasistemas.bacus.controller.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +17,11 @@ import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.model.Wine;
 
 public class WineActivity extends AppCompatActivity {
-    public  static  String EXTRA_WINE = "com.adasistemas.bacus.controller.WineActivity.EXTRA_WINE";
+    public  static  String EXTRA_WINE = "com.adasistemas.bacus.controller.activity.WineActivity.EXTRA_WINE";
 
     private static  final String TAG = WineActivity.class.getSimpleName();
     private static  final int SETTING_REQUEST = 1;
-    private static  final String STATE_IMAGE_SCALE_TYPE = "com.adasistemas.bacus.controller.WineActivity.STATE_IMAGE_SCALE_TYPE";
+    private static  final String STATE_IMAGE_SCALE_TYPE = "com.adasistemas.bacus.controller.activity.WineActivity.STATE_IMAGE_SCALE_TYPE";
 
     //Modelo
     private Wine mWine = null;

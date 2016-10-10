@@ -1,4 +1,4 @@
-package com.adasistemas.bacus.controller;
+package com.adasistemas.bacus.controller.activity;
 
 import android.app.TabActivity;
 import android.content.Intent;
