@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.adasistemas.bacus.R;
 
@@ -20,6 +22,10 @@ public abstract class FragmentContainerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fragment_container);
 
+        //Usar toolbar en vez de ActionBar
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
@@ -30,6 +36,7 @@ public abstract class FragmentContainerActivity extends AppCompatActivity {
                     .add(R.id.fragment_container,fragment)
                     .commit();
         }
+
 
     }
 
