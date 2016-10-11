@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.model.Wine;
+import com.adasistemas.bacus.model.Winery;
 
 /**
  * Created by ruben on 10/10/2016.
@@ -23,27 +24,11 @@ public class WineyFragment extends Fragment {
 
         View root= inflater.inflate(R.layout.fragment_winery,container,false);
 
-        Wine bembibre =  new Wine(
-                5,
-                "Bembibre"
-                ,"Tinto"
-                ,R.drawable.bembibre
-                ,"Dominio de Tares"
-                ,"http://www.dominiodetares.com/portfolio/bembibre/"
-                ,"Vendiamiado a mano racimo a racimo, fermentado con su propia levadura natural y criado durante 16 meses en barricas de roble francés y americano con 24 meses extra en botellaVino de intenso color granate, nariz de frutos rojos y negros confitados, recuerdos de ciruela pasa y frutos secos tostados. Boca densa, pulida y cálida."
-                ,"El Bierzo");
-        bembibre.addGrape("Mencia");
+        Winery winery= Winery.getIntance();
 
-        Wine vegabal =  new Wine(
-                4,
-                "Vengabal"
-                ,"Tempranillo"
-                ,R.drawable.vendaval
-                ,"Dominio de Tares"
-                ,"http://www.vegabal.com/es"
-                ,"kjaskja jsa sjak sjklaj sklaj slkaj lkj alks jlakj sas."
-                ,"Valdepeñas");
-        bembibre.addGrape("Tempranillo");
+        Wine bembibre =  winery.getWine(0);
+
+        Wine vegabal =  winery.getWine(1);
 
         FragmentTabHost tabHost = (FragmentTabHost) root.findViewById(android.R.id.tabhost);
         tabHost.setup(getActivity(),getActivity().getSupportFragmentManager(),android.R.id.tabcontent);
