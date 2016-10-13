@@ -7,6 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +25,46 @@ public class WineyFragment extends Fragment implements ViewPager.OnPageChangeLis
     private ViewPager mPager = null;
     private ActionBar mActionBar = null;
     private Winery mWinery = null;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);//Indicar que hay opciones de menu
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_winery,menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean superValue=  super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == R.id.menu_next && mPager.getCurrentItem() < mWinery.getWineCount() - 1){
+            mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+            return  true;
+        }else if(item.getItemId() == R.id.menu_prev && mPager.getCurrentItem() > 0){
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+            return  true;
+        }
+        else{
+            return superValue;
+        }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        MenuItem menuNext = menu.findItem(R.id.menu_next);
+        MenuItem menuPrec = menu.findItem(R.id.menu_prev);
+
+        menuNext.setEnabled(mPager.getCurrentItem() < mWinery.getWineCount() - 1);
+        menuPrec.setEnabled(mPager.getCurrentItem() > 0);
+    }
 
     @Nullable
     @Override

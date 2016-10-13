@@ -8,4 +8,6 @@
     <string name="Cancell">Cancelar</string>
     <string name="Accept">Aceptar</string>
     <string name="Settings">Ajustes</string>
+    <string name="next">Siguiente</string>
+    <string name="previus">Anterior</string>
 </resources>
