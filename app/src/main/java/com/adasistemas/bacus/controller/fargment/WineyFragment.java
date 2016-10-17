@@ -22,9 +22,20 @@ import com.adasistemas.bacus.model.Winery;
  */
 
 public class WineyFragment extends Fragment implements ViewPager.OnPageChangeListener {
+    public static final String ARG_WINE_INDEX= "com.adasistemas.bacus.controller.fargment.WineyFragment.ARG_WINE_INDEX";
+
     private ViewPager mPager = null;
     private ActionBar mActionBar = null;
     private Winery mWinery = null;
+
+    public  static  WineyFragment newInstance(int wineIndex){
+        Bundle arguments = new Bundle();
+        arguments.putInt(ARG_WINE_INDEX,wineIndex);
+        WineyFragment fragment = new WineyFragment();
+        fragment.setArguments(arguments);
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +94,10 @@ public class WineyFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         mPager.setOnPageChangeListener(this);
 
-        updateActionBar(0);
+        int initialWineIndex = getArguments().getInt(ARG_WINE_INDEX);
+
+        mPager.setCurrentItem(initialWineIndex);
+        //updateActionBar(initialWineIndex);
 
         return root;
     }
