@@ -24,7 +24,8 @@
             android:name=".controller.activity.SettingActivity"
             android:label="@string/app_name">
         </activity>
-        <activity android:name=".controller.activity.WineryActivity">
+        <activity android:name=".controller.activity.WineryActivity"
+            android:parentActivityName=".controller.activity.WineListActivity">
 
         </activity>
         <activity android:name=".controller.activity.WineListActivity">
