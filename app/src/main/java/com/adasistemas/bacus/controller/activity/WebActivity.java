@@ -34,6 +34,17 @@ public class WebActivity extends FragmentContainerActivity {
         WebFragment fragment = new WebFragment();
         fragment.setArguments(arguments);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Flecha atras / home
         return fragment;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            finish();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
