@@ -3,6 +3,7 @@ package com.adasistemas.bacus.controller.fargment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -134,6 +135,20 @@ public class WineFragment extends Fragment {
         }
 
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (PreferenceManager.getDefaultSharedPreferences(getActivity()).contains(SettingFragment.PREF_IMAGE_SCALE_TYPE)){
+            String scaleTypeString = PreferenceManager.getDefaultSharedPreferences(getActivity())
+                                            .getString(SettingFragment.PREF_IMAGE_SCALE_TYPE,null);
+
+            ImageView.ScaleType scaleType = ImageView.ScaleType.valueOf(scaleTypeString);
+            mWineImage.setScaleType(scaleType);
+        }
+
     }
 
     @Override
