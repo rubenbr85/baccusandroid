@@ -1,6 +1,7 @@
 package com.adasistemas.bacus.controller.activity;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +40,7 @@ public class WineListActivity extends AppCompatActivity implements WineListFragm
         if (findViewById(R.id.winery) != null){
             Fragment wineryFragment= fm.findFragmentById(R.id.winery);
             if (wineryFragment == null){
-                wineryFragment= new WineyFragment().newInstance(0);
+                wineryFragment= new WineyFragment().newInstance(PreferenceManager.getDefaultSharedPreferences(this).getInt(WineyFragment.PREF_LAST_WINE_INDEX,0));
                 fm.beginTransaction()
                         .add(R.id.winery,wineryFragment)
                         .commit();

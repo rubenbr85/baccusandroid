@@ -1,6 +1,7 @@
 package com.adasistemas.bacus.controller.fargment;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,6 +24,7 @@ import com.adasistemas.bacus.model.Winery;
 
 public class WineyFragment extends Fragment implements ViewPager.OnPageChangeListener {
     public static final String ARG_WINE_INDEX= "com.adasistemas.bacus.controller.fargment.WineyFragment.ARG_WINE_INDEX";
+    public static final String PREF_LAST_WINE_INDEX = "lastWine";
 
     private ViewPager mPager = null;
     private ActionBar mActionBar = null;
@@ -115,6 +117,11 @@ public class WineyFragment extends Fragment implements ViewPager.OnPageChangeLis
     @Override
     public void onPageSelected(int position) {
         updateActionBar(position);
+
+        PreferenceManager.getDefaultSharedPreferences(getActivity())
+                .edit()
+                .putInt(PREF_LAST_WINE_INDEX, position)
+                .commit();
     }
 
     @Override
