@@ -1,5 +1,6 @@
 package com.adasistemas.bacus.controller.activity;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,7 @@ import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.controller.fargment.WineListFragment;
 import com.adasistemas.bacus.controller.fargment.WineyFragment;
 
-public class WineListActivity extends AppCompatActivity {
+public class WineListActivity extends AppCompatActivity implements WineListFragment.onWineSelectedListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +45,19 @@ public class WineListActivity extends AppCompatActivity {
                         .commit();
 
             }
+        }
+    }
+
+    @Override
+    public void onWineSelected(int wineIndex) {
+        WineyFragment wineryFragment = (WineyFragment) getSupportFragmentManager().findFragmentById(R.id.winery);
+
+        if (wineryFragment != null){
+            wineryFragment.changeWine(wineIndex);
+        }else{
+            Intent wineryIntent= new Intent(this, WineryActivity.class);
+            wineryIntent.putExtra(WineryActivity.EXTRA_WINE_INDEX,wineIndex);
+            startActivity(wineryIntent);
         }
     }
 }

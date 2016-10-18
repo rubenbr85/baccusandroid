@@ -1,6 +1,7 @@
 package com.adasistemas.bacus.controller.fargment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.adasistemas.bacus.model.Winery;
  */
 public class WineListFragment extends Fragment {
 
+    private onWineSelectedListener mOnWineSelectedListener = null;
 
     public WineListFragment() {
         // Required empty public constructor
@@ -44,14 +46,32 @@ public class WineListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent wineryIntent= new Intent(getActivity(), WineryActivity.class);
-                wineryIntent.putExtra(WineryActivity.EXTRA_WINE_INDEX,position);
-
-                startActivity(wineryIntent);
+                //Antes, pero ahora con la tablet se puede comportar de dos maneras
+                //Intent wineryIntent= new Intent(getActivity(), WineryActivity.class);
+                //wineryIntent.putExtra(WineryActivity.EXTRA_WINE_INDEX,position);
+                //startActivity(wineryIntent);
+                if (mOnWineSelectedListener != null){
+                    mOnWineSelectedListener.onWineSelected(position);
+                }
 
             }
         });
         return root;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnWineSelectedListener= null;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mOnWineSelectedListener= (onWineSelectedListener) getActivity();
+    }
+
+    public  interface onWineSelectedListener{
+        void onWineSelected(int wineIndex);
+    }
 }

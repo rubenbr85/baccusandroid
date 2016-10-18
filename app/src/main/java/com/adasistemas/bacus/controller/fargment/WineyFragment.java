@@ -121,4 +121,8 @@ public class WineyFragment extends Fragment implements ViewPager.OnPageChangeLis
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    public void changeWine(int wineIndex){
+        mPager.setCurrentItem(wineIndex);
+    }
 }
