@@ -149,7 +149,9 @@ public class WineFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (mWineImage != null){
+            outState.putSerializable(STATE_IMAGE_SCALE_TYPE, mWineImage.getScaleType());
+        }
 
-        outState.putSerializable(STATE_IMAGE_SCALE_TYPE, mWineImage.getScaleType());
     }
 }
