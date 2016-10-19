@@ -1,11 +1,14 @@
 package com.adasistemas.bacus.controller.fargment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +24,7 @@ import com.adasistemas.bacus.controller.activity.SettingActivity;
  * Created by ruben on 10/10/2016.
  */
 
-public class SettingFragment extends Fragment implements View.OnClickListener {
+public class SettingFragment extends DialogFragment implements View.OnClickListener {
     public static final  String ARG_WINE_IMAGE_SCLAE_TYPE = "com.adasistemas.bacus.controller.fargment.EXTRA_WINE_IMAGE_SCLAE_TYPE";
     public  static final String PREF_IMAGE_SCALE_TYPE="SCALE_TYPE";
     //Vistas
@@ -51,7 +54,14 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         return  root;
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog= super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.Settings);
 
+        return  dialog;
+    }
 
     @Override
     public void onClick(View v) {
@@ -68,28 +78,44 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     }
 
     private void saveSettings(){
+        ImageView.ScaleType selectedSccaleType = null;
+
         Intent config = new Intent();
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .edit();
 
         if (mRadioGroup.getCheckedRadioButtonId() == R.id.fit_radio){
-            config.putExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE, ImageView.ScaleType.FIT_XY);
-            editor.putString(PREF_IMAGE_SCALE_TYPE,ImageView.ScaleType.FIT_XY.toString());
+            selectedSccaleType=ImageView.ScaleType.FIT_XY;
         }else  if (mRadioGroup.getCheckedRadioButtonId() == R.id.center_radio){
-            config.putExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE, ImageView.ScaleType.FIT_CENTER);
-            editor.putString(PREF_IMAGE_SCALE_TYPE,ImageView.ScaleType.FIT_CENTER.toString());
+            selectedSccaleType=ImageView.ScaleType.FIT_CENTER;
         }
+
+        config.putExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE, selectedSccaleType);
+        editor.putString(PREF_IMAGE_SCALE_TYPE,selectedSccaleType.toString());
 
         editor.commit();
 
-        //Arreglarlo mas adenate,no se debe
-        getActivity().setResult(Activity.RESULT_OK,config);
-        getActivity().finish( );
+        if (getTargetFragment() !=null){
+            //Desde un fragmento
+            getTargetFragment().onActivityResult(getTargetRequestCode(),Activity.RESULT_OK,config);
+            dismiss();
+        }else{
+            //Arreglarlo mas adenate,no se debe, desde una actividad
+            getActivity().setResult(Activity.RESULT_OK,config);
+            getActivity().finish( );
+        }
+
     }
 
     private void cancelSettings(){
-        getActivity().setResult(Activity.RESULT_CANCELED);
-        getActivity().finish();
+        if (getTargetFragment() !=null){
+            getTargetFragment().onActivityResult(getTargetRequestCode(),Activity.RESULT_CANCELED,null);
+            dismiss();
+        }else{
+            getActivity().setResult(Activity.RESULT_CANCELED);
+            getActivity().finish();
+        }
+
     }
 
 }
