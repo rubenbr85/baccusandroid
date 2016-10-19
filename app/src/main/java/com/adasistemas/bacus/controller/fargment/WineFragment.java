@@ -127,10 +127,13 @@ public class WineFragment extends Fragment {
         super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.action_settings){
-            Intent settingsIntent = new Intent(getActivity(), SettingActivity.class);
-            settingsIntent.putExtra(SettingActivity.EXTRA_WINE_IMAGE_SCLAE_TYPE,mWineImage.getScaleType());
-            startActivityForResult(settingsIntent,SETTING_REQUEST);
+            SettingFragment settingFragment = new SettingFragment();
+            Bundle arguments = new Bundle();
+            arguments.putSerializable(SettingFragment.ARG_WINE_IMAGE_SCLAE_TYPE, mWineImage.getScaleType());
+            settingFragment.setArguments(arguments);
+            settingFragment.setTargetFragment(this,SETTING_REQUEST);
 
+            settingFragment.show(getFragmentManager(),null);
             return true;
         }
 
