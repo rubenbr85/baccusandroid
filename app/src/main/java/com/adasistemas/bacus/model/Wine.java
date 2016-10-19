@@ -3,26 +3,37 @@
  */
 package com.adasistemas.bacus.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class Wine implements Serializable{
     private String  mName = null;
     private String mType = null;
-    private int mPhoto = 0;
+    private Bitmap mPhoto = null;
     private String mCompanyName = null;
     private String mCompanyWeb = null;
     private String mNotes = null;
     private String mOrigin = null;
     private int mRating = 0; //0 to 5
+    private String mPhotoURL = null;
+
     private List<String> mGrapes = new LinkedList<>();
 
-    public Wine(int rating, String name, String type, int photo, String companyName, String companyWeb, String notes, String origin) {
+    public Wine(int rating, String name, String type, String photoURL, String companyName, String companyWeb, String notes, String origin) {
         mRating = rating;
         mName = name;
         mType = type;
-        mPhoto = photo;
+        mPhotoURL = photoURL;
         mCompanyName = companyName;
         mCompanyWeb = companyWeb;
         mNotes = notes;
@@ -41,12 +52,41 @@ public class Wine implements Serializable{
         return mType;
     }
 
-    public int getPhoto() {
+    public Bitmap getPhoto()
+    {
+        if (mPhoto == null){
+            mPhoto = getBitmapFromURL(getPhotoURL());
+        }
         return mPhoto;
+    }
+
+    private Bitmap getBitmapFromURL(String photoURL) {
+        InputStream in = null;
+        try{
+            in = new URL(photoURL).openStream();
+            return BitmapFactory.decodeStream(in);
+
+        }catch (Exception ex){
+            Log.e(getClass().getSimpleName(),"Error downloading image",ex);
+            return null;
+        }finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                   // e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     public String getCompanyName() {
         return mCompanyName;
+    }
+
+    public String getPhotoURL() {
+        return mPhotoURL;
     }
 
     public String getCompanyWeb() {
