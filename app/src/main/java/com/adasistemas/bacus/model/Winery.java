@@ -1,5 +1,8 @@
 package com.adasistemas.bacus.model;
 
+import android.os.Build;
+import android.os.StrictMode;
+
 import com.adasistemas.bacus.R;
 
 import org.json.JSONArray;
@@ -31,6 +34,11 @@ public class Winery {
     public  static Winery getIntance(){
         if (sIntance == null){
             try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+                    //A partir de version de Android no se permite descargar datos en hilo principal, para forzarlo es asi:
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                }
                 sIntance= downloadWines();
             } catch (IOException e) {
                 e.printStackTrace();
