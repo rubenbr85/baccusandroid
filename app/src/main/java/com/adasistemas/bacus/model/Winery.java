@@ -68,18 +68,20 @@ public class Winery {
         JSONArray wines = new JSONArray(response.toString());
 
         for(int wineIndex = 0; wineIndex < wines.length();wineIndex++ ){
-             String  name = null;
-             String type = null;
-             int photo = 0;
-             String companyName = null;
-             String companyWeb = null;
-             String notes = null;
-             String origin = null;
-             int rating = 0; //0 to 5
+            String id = null;
+            String  name = null;
+            String type = null;
+            int photo = 0;
+            String companyName = null;
+            String companyWeb = null;
+            String notes = null;
+            String origin = null;
+            int rating = 0; //0 to 5
             String picture = null;
 
             JSONObject jsonWine = wines.getJSONObject(wineIndex);
             if (jsonWine.has("name")){
+                id= jsonWine.getString("_id");
                 name= jsonWine.getString("name");
                 type =  jsonWine.getString("type");
                 companyName =  jsonWine.getString("company");
@@ -89,7 +91,7 @@ public class Winery {
                 origin = jsonWine.getString("origin");
                 picture = jsonWine.getString("picture");
 
-                Wine wine = new Wine(rating,name,type,picture,companyName,companyWeb,notes,origin);
+                Wine wine = new Wine(id ,rating,name,type,picture,companyName,companyWeb,notes,origin);
                 JSONArray jsonGrapes = jsonWine.getJSONArray("grapes");
                 for(int grapeIndex = 0; grapeIndex < jsonGrapes.length(); grapeIndex ++){
                     wine.addGrape(jsonGrapes.getJSONObject(grapeIndex).getString("grape"));

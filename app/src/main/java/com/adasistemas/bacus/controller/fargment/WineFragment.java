@@ -77,7 +77,7 @@ public class WineFragment extends Fragment {
         mGoToWebButton= (ImageButton) root.findViewById(R.id.go_to_web_button);
 
         //Damos valor a las vistas con el modelo
-        mWineImage.setImageBitmap(mWine.getPhoto());
+        mWineImage.setImageBitmap(mWine.getPhoto(getActivity()));
         mWineNameText.setText(mWine.getName());
         mWineTypeText.setText(mWine.getType());
         mWineOriginText.setText(mWine.getOrigin());
