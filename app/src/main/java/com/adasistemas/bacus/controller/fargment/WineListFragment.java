@@ -6,18 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.adasistemas.bacus.R;
 import com.adasistemas.bacus.controller.activity.WineryActivity;
 import com.adasistemas.bacus.model.Wine;
 import com.adasistemas.bacus.model.Winery;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +54,7 @@ public class WineListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Winery winery) {
-                ArrayAdapter<Wine> adapter= new ArrayAdapter<Wine>(getActivity(),android.R.layout.simple_list_item_1,winery.getWineList());
+                WIneListAdapter adapter= new WIneListAdapter(getActivity(),winery.getWineList());
 
                 ListView listView = (ListView)root.findViewById(android.R.id.list);
                 listView.setAdapter(adapter);
@@ -96,5 +101,31 @@ public class WineListFragment extends Fragment {
 
     public  interface onWineSelectedListener{
         void onWineSelected(int wineIndex);
+    }
+
+    class WIneListAdapter extends ArrayAdapter<Wine>{
+        public WIneListAdapter(Context context, List<Wine> wineList){
+            super(context, R.layout.list_item_wine, wineList);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View wineRow = inflater.inflate(R.layout.list_item_wine,parent,false);
+
+            ImageView wineImage = (ImageView) wineRow.findViewById(R.id.wine_image);
+            TextView wineName = (TextView) wineRow.findViewById(R.id.wine_name);
+            TextView wineCompany = (TextView) wineRow.findViewById(R.id.wine_company);
+
+            Wine currentWine = getItem(position);
+            wineImage.setImageBitmap(currentWine.getPhoto(getActivity()));
+            wineName.setText(currentWine.getName());
+            wineCompany.setText(currentWine.getCompanyName());
+
+
+            return  wineRow;
+        }
     }
 }
