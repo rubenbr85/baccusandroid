@@ -4,6 +4,7 @@ package com.adasistemas.bacus.controller.fargment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -124,6 +125,9 @@ public class WineListFragment extends Fragment {
             wineName.setText(currentWine.getName());
             wineCompany.setText(currentWine.getCompanyName());
 
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "Valentina-Regular.otf");
+            wineName.setTypeface(tf);
+            wineCompany.setTypeface(tf);
 
             return  wineRow;
         }
