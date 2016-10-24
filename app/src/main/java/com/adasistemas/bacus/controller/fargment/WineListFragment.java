@@ -1,8 +1,10 @@
 package com.adasistemas.bacus.controller.fargment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.adasistemas.bacus.model.Winery;
 public class WineListFragment extends Fragment {
 
     private onWineSelectedListener mOnWineSelectedListener = null;
+    private ProgressDialog mProgressDialog = null;
 
     public WineListFragment() {
         // Required empty public constructor
@@ -34,28 +37,48 @@ public class WineListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_wine_list, container, false);
+        final View root = inflater.inflate(R.layout.fragment_wine_list, container, false);
 
-        ListView listView = (ListView)root.findViewById(android.R.id.list);
-        Winery winery = Winery.getIntance();
 
-        ArrayAdapter<Wine> adapter= new ArrayAdapter<Wine>(getActivity(),android.R.layout.simple_list_item_1,winery.getWineList());
 
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        AsyncTask<Void, Void, Winery> wineryDpwnloader = new AsyncTask<Void, Void, Winery>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Antes, pero ahora con la tablet se puede comportar de dos maneras
-                //Intent wineryIntent= new Intent(getActivity(), WineryActivity.class);
-                //wineryIntent.putExtra(WineryActivity.EXTRA_WINE_INDEX,position);
-                //startActivity(wineryIntent);
-                if (mOnWineSelectedListener != null){
-                    mOnWineSelectedListener.onWineSelected(position);
-                }
-
+            protected Winery doInBackground(Void... params) {
+                return Winery.getIntance();
             }
-        });
+
+            @Override
+            protected void onPostExecute(Winery winery) {
+                ArrayAdapter<Wine> adapter= new ArrayAdapter<Wine>(getActivity(),android.R.layout.simple_list_item_1,winery.getWineList());
+
+                ListView listView = (ListView)root.findViewById(android.R.id.list);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //Antes, pero ahora con la tablet se puede comportar de dos maneras
+                        //Intent wineryIntent= new Intent(getActivity(), WineryActivity.class);
+                        //wineryIntent.putExtra(WineryActivity.EXTRA_WINE_INDEX,position);
+                        //startActivity(wineryIntent);
+                        if (mOnWineSelectedListener != null){
+                            mOnWineSelectedListener.onWineSelected(position);
+                        }
+
+                    }
+                });
+                mProgressDialog.dismiss();
+            }
+        };
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle(getString(R.string.loading));
+
+        if (!Winery.isInstanceAvaliable()){
+            mProgressDialog.show();
+        }
+
+        wineryDpwnloader.execute();
+
         return root;
     }
 

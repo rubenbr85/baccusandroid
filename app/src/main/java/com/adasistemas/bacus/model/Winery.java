@@ -50,6 +50,9 @@ public class Winery {
         return sIntance;
     }
 
+    public  static boolean isInstanceAvaliable() {
+        return sIntance != null;
+    }
     private static Winery downloadWines() throws IOException, JSONException {
         Winery winery = new Winery();
         winery.mWines = new LinkedList<Wine>();
