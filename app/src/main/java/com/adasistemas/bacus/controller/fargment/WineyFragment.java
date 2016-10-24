@@ -1,5 +1,6 @@
 package com.adasistemas.bacus.controller.fargment;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,6 +27,7 @@ import com.adasistemas.bacus.model.Winery;
 public class WineyFragment extends Fragment implements ViewPager.OnPageChangeListener {
     public static final String ARG_WINE_INDEX= "com.adasistemas.bacus.controller.fargment.WineyFragment.ARG_WINE_INDEX";
     public static final String PREF_LAST_WINE_INDEX = "lastWine";
+    private ProgressDialog mProgressDialog = null;
 
     private ViewPager mPager = null;
     private ActionBar mActionBar = null;
@@ -117,9 +119,18 @@ public class WineyFragment extends Fragment implements ViewPager.OnPageChangeLis
 
                 mPager.setCurrentItem(initialWineIndex);
                 updateActionBar(initialWineIndex);
+
+                mProgressDialog.dismiss();
             }
 
         };
+
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle(getString(R.string.loading));
+
+        if (!Winery.isInstanceAvaliable()){
+            mProgressDialog.show();
+        }
 
         wineryDownloader.execute();
         return root;

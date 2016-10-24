@@ -1,6 +1,7 @@
 package com.adasistemas.bacus.controller.fargment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,6 +25,7 @@ import com.adasistemas.bacus.model.Winery;
 public class WineListFragment extends Fragment {
 
     private onWineSelectedListener mOnWineSelectedListener = null;
+    private ProgressDialog mProgressDialog = null;
 
     public WineListFragment() {
         // Required empty public constructor
@@ -65,8 +67,15 @@ public class WineListFragment extends Fragment {
 
                     }
                 });
+                mProgressDialog.dismiss();
             }
         };
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle(getString(R.string.loading));
+
+        if (!Winery.isInstanceAvaliable()){
+            mProgressDialog.show();
+        }
 
         wineryDpwnloader.execute();
 
