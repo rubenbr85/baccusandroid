@@ -3,8 +3,6 @@ package com.adasistemas.bacus.model;
 import android.os.Build;
 import android.os.StrictMode;
 
-import com.adasistemas.bacus.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,10 +10,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,11 +22,16 @@ import java.util.List;
 
 public class Winery {
 
+    public static enum WineType{
+        RED, WHITE, ROSE, OTHER
+    }
+
     private static  final String winesURL = "http://static.keepcoding.io/baccus/wines.json";
 
     //Patron singelton
     private static  Winery sIntance = null;
-    private List<Wine> mWines = null;
+    private List<Wine> mWinesList = null;
+    private HashMap<WineType,List<Wine>> mWinesByTYpe =null;
 
     public  static Winery getIntance(){
         if (sIntance == null){
@@ -55,7 +57,13 @@ public class Winery {
     }
     private static Winery downloadWines() throws IOException, JSONException {
         Winery winery = new Winery();
-        winery.mWines = new LinkedList<Wine>();
+        winery.mWinesList = new LinkedList<Wine>();
+        winery.mWinesByTYpe = new HashMap<>();
+        //Inicializar la lista de cada tipo de vino
+        for (WineType type : WineType.values()){
+            winery.mWinesByTYpe.put(type,  new LinkedList<Wine>());
+        }
+
 
         URLConnection conn = new URL(winesURL).openConnection();
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -100,8 +108,22 @@ public class Winery {
                     wine.addGrape(jsonGrapes.getJSONObject(grapeIndex).getString("grape"));
                 }
 
-                winery.mWines.add(wine);
+                //winery.mWinesList.add(wine);
+                if (type.equalsIgnoreCase("tinto")){
+                    winery.mWinesByTYpe.get(WineType.RED).add(wine);
+                } else if (type.equalsIgnoreCase("blanco")){
+                    winery.mWinesByTYpe.get(WineType.WHITE).add(wine);
+                } else if (type.equalsIgnoreCase("rosado")){
+                    winery.mWinesByTYpe.get(WineType.ROSE).add(wine);
+                }else{
+                    winery.mWinesByTYpe.get(WineType.OTHER).add(wine);
+                }
             }
+        }
+
+        for (WineType type : WineType.values()){
+            List<Wine> wineList = winery.mWinesByTYpe.get(type);
+            winery.mWinesList.addAll(wineList);
         }
 
         return winery;
@@ -109,14 +131,28 @@ public class Winery {
 
 
     public Wine getWine(int index){
-        return mWines.get(index);
+        return mWinesList.get(index);
+    }
+
+    public Wine getWine(WineType type, int index){
+        return mWinesByTYpe.get(type).get(index);
     }
 
     public int getWineCount(){
-        return mWines.size();
+        return mWinesList.size();
+    }
+
+    public int getWineCount(WineType type){
+        return mWinesByTYpe.get(type).size();
     }
 
     public  List<Wine> getWineList(){
-        return mWines;
+        return mWinesList;
     }
+
+    public int getAbsolutePosition(WineType type, int relativePosition){
+        Wine wine = getWine(type,relativePosition);
+        return mWinesList.indexOf(wine);
+    }
+
 }
