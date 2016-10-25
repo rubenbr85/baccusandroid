@@ -18,6 +18,11 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:id="@+id/list"></FrameLayout>
+        <view
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black">
+        </view>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

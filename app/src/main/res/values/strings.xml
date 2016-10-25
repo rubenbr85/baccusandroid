@@ -11,4 +11,8 @@
     <string name="next">Siguiente</string>
     <string name="previus">Anterior</string>
     <string name="loading">Cargando...</string>
+    <string name="red">Tinto</string>
+    <string name="white">Blanco</string>
+    <string name="rose">Rosado</string>
+    <string name="other">Otro</string>
 </resources>
