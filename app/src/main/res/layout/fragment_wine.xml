@@ -41,7 +41,7 @@
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@android:style/Widget.Holo.RatingBar.Small"
+        style="@style/WineRating"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/go_to_web_button"
         android:layout_alignParentLeft="true"
