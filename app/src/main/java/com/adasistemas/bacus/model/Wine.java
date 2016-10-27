@@ -23,7 +23,7 @@ public class Wine implements Serializable{
     private String  mId = null;
     private String  mName = null;
     private String mType = null;
-    private Bitmap mPhoto = null;
+    //private Bitmap mPhoto = null;
     private String mCompanyName = null;
     private String mCompanyWeb = null;
     private String mNotes = null;
@@ -63,10 +63,12 @@ public class Wine implements Serializable{
 
     public Bitmap getPhoto(Context context)
     {
-        if (mPhoto == null){
-            mPhoto = getBitmapFromURL(getPhotoURL(),context);
-        }
-        return mPhoto;
+        //if (mPhoto == null){
+         //   mPhoto = getBitmapFromURL(getPhotoURL(),context);
+        //}
+        //return mPhoto;
+
+        return   getBitmapFromURL(getPhotoURL(),context);
     }
 
     private Bitmap getBitmapFromURL(String photoURL, Context context) {
