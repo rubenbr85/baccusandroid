@@ -15,4 +15,10 @@
     <string name="white">Blanco</string>
     <string name="rose">Rosado</string>
     <string name="other">Otro</string>
+    <string name="wine_image">Imagen del vino</string>
+    <string name="wine_company_subtitle">Bodega</string>
+    <string name="go_to_web">Ir a la pagina web</string>
+    <string name="wine_type_subtitle">Tipo</string>
+    <string name="wine_origin_subtitle">Origen</string>
+    <string name="wine_grape_subtitle">Uvas</string>
 </resources>

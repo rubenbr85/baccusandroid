@@ -2,6 +2,7 @@ package com.adasistemas.bacus.controller.fargment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -76,6 +77,18 @@ public class WineFragment extends Fragment {
         mWineGrapesContainer = (ViewGroup) root.findViewById(R.id.grapes_container);
         mGoToWebButton= (ImageButton) root.findViewById(R.id.go_to_web_button);
 
+        // Aplicamos gomina al texto
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Valentina-Regular.otf");
+        mWineNameText.setTypeface(font);
+        mWineTypeText.setTypeface(font);
+        mWineCompanyText.setTypeface(font);
+        mWineOriginText.setTypeface(font);
+        mWineNotesText.setTypeface(font);
+        ((TextView)root.findViewById(R.id.wine_type_subtitle)).setTypeface(font);
+        ((TextView)root.findViewById(R.id.wine_company_subtitle)).setTypeface(font);
+        ((TextView)root.findViewById(R.id.wine_origin_subtitle)).setTypeface(font);
+        ((TextView)root.findViewById(R.id.wine_grape_subtitle)).setTypeface(font);
+
         //Damos valor a las vistas con el modelo
         mWineImage.setImageBitmap(mWine.getPhoto(getActivity()));
         mWineNameText.setText(mWine.getName());
@@ -90,6 +103,7 @@ public class WineFragment extends Fragment {
             TextView grapeText = new TextView(getActivity());
             grapeText.setText(mWine.getGrape(i));
             grapeText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+            grapeText.setTypeface(font);
 
             mWineGrapesContainer.addView(grapeText);
         }
